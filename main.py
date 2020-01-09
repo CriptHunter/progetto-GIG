@@ -15,7 +15,7 @@ try:
 								  database = "consegna5")
 
 	cursor = connection.cursor()
-	print("Connected to DB")
+	print("Connected to DataBase")
 
 	cursor.execute(filtering.delete_tragittof_query)
 	cursor.execute(copy_tragitto_query)
