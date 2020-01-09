@@ -1,6 +1,6 @@
 #ritorna tutti i punti del tragitto
 get_points_query = '''SELECT distinct id, time 
-					  FROM tragitto
+					  FROM tragitto_filtered
 					  ORDER BY time;'''
 
 #cancella tutti i punti dalla tabella delle velocità
@@ -10,11 +10,11 @@ delete_speed_mm_query = '''DELETE FROM speed_mm'''
 
 #calcola la distanza tra due punti
 distance_query = '''SELECT st_distance(p1.geom::geography, p2.geom::geography)
-					FROM tragitto as p1, tragitto as p2
+					FROM tragitto_filtered as p1, tragitto_filtered as p2
 					WHERE p1.id = %s AND p2.id = %s'''
 
 distance_map_matched_query = '''SELECT st_distance(m1.geom::geography, m2.geom::geography)
-								FROM tragitto as p1, tragitto as p2, matched_point as m1, matched_point as m2
+								FROM tragitto_filtered as p1, tragitto_filtered as p2, matched_point as m1, matched_point as m2
 								WHERE p1.id = %s AND p2.id = %s 
 								AND
 							    p1.track_seg_point_id = m1.track_seg_point_id AND p2.track_seg_point_id = m2.track_seg_point_id''' 
@@ -28,6 +28,7 @@ insert_speeds_mm_query = '''INSERT INTO speed_mm
 
 
 def avg_speed(connection):
+	print('-'*100)
 	cursor = connection.cursor()
 
 	#lista di tuple(id_p1, id_p2, Δt, Δs)
