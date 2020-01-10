@@ -1,15 +1,15 @@
 #query che trova la strada più vicina ad un punto
 get_closest_line_query = '''SELECT strade.osm_id
-						 FROM tragitto_filtered as t, strade_open_street_map as strade 
-						 WHERE t.track_seg_point_id = %s AND
-						 strade.highway <> 'pedestrian' AND strade.highway <> 'footway'
-						 ORDER BY st_distance(t.geom, strade.geom) 
-						 LIMIT 1;'''
+						 	FROM tragitto_filtered as t, strade_open_street_map as strade 
+						 	WHERE t.track_seg_point_id = %s AND
+						 	strade.highway <> 'pedestrian' AND strade.highway <> 'footway'
+						 	ORDER BY st_distance(t.geom, strade.geom) 
+						 	LIMIT 1;'''
 
 #query che proietta un punto sulla linea più vicina
 point_match_query = '''SELECT st_closestpoint(strade.geom, t.geom)
-						  FROM strade_open_street_map as strade, tragitto_filtered as t
-						  WHERE CAST(strade.osm_id AS int) = %s AND t.track_seg_point_id = %s;'''
+					   FROM strade_open_street_map as strade, tragitto_filtered as t
+					   WHERE CAST(strade.osm_id AS int) = %s AND t.track_seg_point_id = %s;'''
 
 #query che ritorna tutti i punti GPS del tragitto
 get_points_query = '''SELECT distinct * 
@@ -29,6 +29,7 @@ def fix_isolated_point(plist):
 
 def match(connection):
 	print('-'*100)
+	print("MAP MATCHING:")
 	cursor = connection.cursor()
 	cursor.execute(delete_points_query)
 	connection.commit()

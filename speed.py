@@ -21,7 +21,7 @@ distance_map_matched_query = '''SELECT st_distance(m1.geom::geography, m2.geom::
 
 #inserisce le velocità calcolate nella tabella speed
 insert_speeds_query = '''INSERT INTO speed 
-				   VALUES (%s, %s, %s, %s)''' #id idp1 idp2 speed
+				   		 VALUES (%s, %s, %s, %s)''' #id idp1 idp2 speed
 
 insert_speeds_mm_query = '''INSERT INTO speed_mm
 				   			VALUES (%s, %s, %s, %s)''' 
@@ -29,6 +29,7 @@ insert_speeds_mm_query = '''INSERT INTO speed_mm
 
 def avg_speed(connection):
 	print('-'*100)
+	print("AVG SPEED:")
 	cursor = connection.cursor()
 
 	#lista di tuple(id_p1, id_p2, Δt, Δs)
@@ -51,7 +52,6 @@ def avg_speed(connection):
 	avg_speed = insert_speed(points, distance_map_matched_query, insert_speeds_mm_query, cursor, speeds_list)
 	print("average speed, map matching = {} m/s = {} km/h".format(avg_speed, avg_speed*3.6))
 
-
 	connection.commit()
 
 def insert_speed(points, distance_query, insert_query, cursor, speeds_list):
@@ -63,6 +63,8 @@ def insert_speed(points, distance_query, insert_query, cursor, speeds_list):
 		for row in cursor.fetchall():
 			ds = row[0]
 		speeds_list.append((points[i][0], points[i+1][0], dt, ds))
+
+	speeds_list = list(filter(lambda a: a[3] != 0, speeds_list))
 
 	avg_speed = 0.0
 	for i, e in enumerate(speeds_list):

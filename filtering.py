@@ -10,6 +10,7 @@ insert_points_query = '''INSERT INTO tragitto_filtered (id, geom, track_fid, tra
 #filtra prendendo un punto ogni t secondi
 def time_filter(connection, t):
 	print('-'*100)
+	print("FILTERING:")
 	print("filtering by time...")
 	cursor = connection.cursor()
 	cursor.execute(get_points_query)
@@ -21,11 +22,13 @@ def time_filter(connection, t):
 	dt = 0
 	for i, p in enumerate(points[:-1]):
 		dt = dt + (points[i+1][6] - points[i][6]).total_seconds()
-		if dt > t:
+		if dt >= t:
 			points_filtered.append(p)
 			dt = dt - t
 
-	points_filtered.append(points[-1])
+	if dt >= t: #l'ultimo punto
+		points_filtered.append(points[-1])
+
 	print("number of points after filter: {}".format(len(points_filtered)))
 
 	for e in points_filtered:

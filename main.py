@@ -24,7 +24,7 @@ try:
 	map_matching.match(connection)
 	speed.avg_speed(connection)
 
-	filtering.time_filter(connection, 3)
+	filtering.time_filter(connection, 4)
 
 	map_matching.match(connection)
 	speed.avg_speed(connection)
