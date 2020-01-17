@@ -19,6 +19,7 @@ get_points_query = '''SELECT distinct *
 #query che cancella tutti i punti generati dal map maptching
 delete_points_query = '''DELETE FROM matched_point'''
 
+#fix per punti singoli isolati su strade errate
 def fix_isolated_point(plist):
 	k = 1
 	for elem in plist[1:-1]:
@@ -41,7 +42,7 @@ def match(connection):
 	#lista di tuple (point, closest_line)
 	point_closest_line_list = []
 
-	#trovo linea più vicina al punto
+	#trova linea più vicina al punto
 	points = cursor.fetchall()
 	print("Number of points: {}".format(len(points)))
 	for row in points:
@@ -56,7 +57,7 @@ def match(connection):
 
 	point_closest_line_list = fix_isolated_point(point_closest_line_list)
 
-	#trovo punto sulla linea
+	#trova punto sulla linea
 	k = 1
 	for elem in point_closest_line_list:
 		data = (elem[1], elem[0])
