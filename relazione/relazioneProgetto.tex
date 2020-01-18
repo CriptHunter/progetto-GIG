@@ -83,17 +83,19 @@ Il risultato visivo dell'esecuzione dell'algoritmo di map matching è rappresent
 	\item Vengono create due tabelle nel database, \textit{speed} e \textit{speed\_mm} relative alle velocità calcolate.
 \end{itemize}
 \chapter*{Riduzione numero punti}
-Per ridurre il numero di punti abbiamo deciso di filtrare i dati in base all'istante di tempo in cui sono stati acquisiti.
-
-Data una funzione che prende un parametro \textit{t} come input, viene creata una lista \textit{points\_filtered} contenente solo i punti la cui distanza temporale è $ \ge t $ .\lstinputlisting[language=Python]{code/filter.py}
-
-Il risultato dell'applicazione del filtro è visibile in figura \ref{filter}.
-\begin{figure}
+Per ridurre il numero di punti abbiamo due possibilità: filtrare i dati in base all'istante di tempo in cui sono stati acquisiti oppure in base alla distanza tra due punti.
+\begin{itemize}
+	\item \textbf{Istante di tempo:} data una funzione che prende un parametro \textit{t} come input, viene creata una lista \textit{points\_filtered} contenente solo i punti la cui distanza temporale è $ \ge t $ .\lstinputlisting[language=Python]{code/filter.py}
+	
+	Il risultato dell'applicazione del filtro è visibile in figura \ref{filter}.
+	\item \textbf{Distanza tra punti:} data una funzione che prendere un parametro \textit{t} come input, viene creata una lista \textit{points\_filtered} contente solo i punti la cui distanza è $ \ge t$ metri. \lstinputlisting[language=Python]{code/filter2.py}
+	
+\end{itemize}
+	\begin{figure}
 	\centering
 	\includegraphics[scale = 0.43]{figures/tragitto_filtered}
 	\caption{Tragitto originale e risultato del map matching dopo l'utilizzo del filtro.}\label{filter}
 \end{figure}
-	
 	
 	
 	
