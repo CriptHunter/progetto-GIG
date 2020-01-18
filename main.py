@@ -8,11 +8,11 @@ copy_tragitto_query = ''' INSERT INTO tragitto_filtered (id, geom, track_fid, tr
 						  FROM tragitto'''
 
 try:
-	connection = psycopg2.connect(user = "postgres",
-								  password = "morris96",
+	connection = psycopg2.connect(user = "prova",
+								  password = "prova2019",
 								  host = "127.0.0.1",
 								  port = "5432",
-								  database = "consegna5")
+								  database = "prova2")
 
 	cursor = connection.cursor()
 	print("Connected to DataBase")
@@ -24,10 +24,10 @@ try:
 	map_matching.match(connection)
 	speed.avg_speed(connection)
 
-	# filtering.time_filter(connection, 4)
+	filtering.time_filter(connection, 6)
 
-	# map_matching.match(connection)
-	# speed.avg_speed(connection)
+	map_matching.match(connection)
+	speed.avg_speed(connection)
 
 
 except (Exception, psycopg2.Error) as error :
