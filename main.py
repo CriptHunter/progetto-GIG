@@ -24,10 +24,10 @@ try:
 	map_matching.match(connection)
 	speed.avg_speed(connection)
 
-	# filtering.time_filter(connection, 4)
+	filtering.distance_filter(connection, 80)
 
-	# map_matching.match(connection)
-	# speed.avg_speed(connection)
+	map_matching.match(connection)
+	speed.avg_speed(connection)
 
 
 except (Exception, psycopg2.Error) as error :
