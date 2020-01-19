@@ -43,6 +43,20 @@
 	\title{Relazione progetto \textit{Gestione dell’informazione geospaziale}\\Testo 1 }
 	\date{\vspace{-5ex}}
 	\maketitle
+\chapter*{Struttura database}
+Il nostro database è composto da sei tabelle:
+\begin{itemize}
+	\item \textbf{tragitto}: questa tabella contiene i punti originali acquisiti tramite GPS.
+	\item \textbf{tragitto\_filtered}: tabella contenente i punti filtrati per tempo o distanza.
+	\item \textbf{strade\_open\_street\_map}: tabella contenente i valori delle linestring rappresentanti le strade esportate da \textit{OpenStreetMap}.%
+	\footnote{https://www.openstreetmap.org/}
+	\item \textbf{matched\_point}: tabella contente i nuovi punti del tragitto dopo l'esecuzione dell'algoritmo di \textit{map matching}.
+	\item \textbf{speed}: in questa tabella sono presenti le velocità tra coppie di punti del tragitto originale.
+	\item \textbf{speed\_mm}: tabella contenente le stesse informazioni della tabella \textit{speed} ma calcolate sulla tabella \textit{matched\_point}.
+\end{itemize}
+
+
+
 
 \chapter*{Rilevamento traiettoria}
 Per rilevare la traiettoria usta all'interno del progetto abbiamo utilizzato l'applicazione Android \textit{Geo Tracker - GPS tracker}%
@@ -52,8 +66,7 @@ Per rilevare la traiettoria usta all'interno del progetto abbiamo utilizzato l'a
 	\includegraphics[scale = 0.43]{figures/punto1}
 	\caption{Immagine presa da QGIS della mappa e della traiettoria}\label{punto1}
 \end{figure}
-Le geometrie delle strade sono state esportate dal sito di \textit{OpenStreetMap}.%
-\footnote{https://www.openstreetmap.org/}
+Le geometrie delle strade sono state esportate dal sito di \textit{OpenStreetMap}.
 
 Il risultato dell'acquisizione della traiettoria e la sovrapposizione alla mappa è visibile in figura \ref{punto1}.
 
