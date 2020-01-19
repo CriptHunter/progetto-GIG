@@ -1,3 +1,4 @@
 *.osm
 *.pdf
 *.gpx
+__pycache__
